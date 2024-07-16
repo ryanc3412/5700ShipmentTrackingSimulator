@@ -1,3 +1,5 @@
+import java.io.File
+
 class TrackingSimulator {
     private var shipments = mutableListOf<Shipment>()
 
@@ -9,6 +11,22 @@ class TrackingSimulator {
         }
         return null
     }
-    
-//    fun addShipment(shipment: Shipment)
+
+    fun addShipment(shipment: Shipment) {
+        shipments.add(shipment)
+    }
+
+    suspend fun runSimulation() {
+        val allLines = mutableListOf<String>()
+
+        File ("./src/main/resources/test.txt").reader().useLines{
+            lines ->lines.forEach {
+                allLines.add (it)
+            }
+        }
+
+        allLines.forEach {
+            val shipmentTake = it.split(",")
+        }
+    }
 }
