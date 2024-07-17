@@ -1,3 +1,7 @@
+package com.example
+
+import ShipmentObserver
+import ShipmentSubject
 import kotlinx.coroutines.delay
 import androidx.compose.runtime.mutableStateListOf
 

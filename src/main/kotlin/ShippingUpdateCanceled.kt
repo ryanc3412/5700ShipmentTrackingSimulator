@@ -1,3 +1,5 @@
+package com.example
+import ShippingUpdate
 import java.time.Instant
 
 class ShippingUpdateCanceled (var shipment: Shipment, override var timeStamp: Long) : ShippingUpdate{

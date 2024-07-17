@@ -1,3 +1,6 @@
+package com.example
+import ShippingUpdate
+
 class ShippingUpdateCreated(var id: String, override var timeStamp: Long) : ShippingUpdate {
     override var newStatus = "created"
     override var previousStatus = ""

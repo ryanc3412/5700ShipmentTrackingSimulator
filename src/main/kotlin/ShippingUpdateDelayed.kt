@@ -1,4 +1,6 @@
+package com.example
 import java.time.Instant
+import ShippingUpdate
 
 class ShippingUpdateDelayed(var shipment: Shipment, override var timeStamp: Long, var newTime: Long) : ShippingUpdate {
     override var newStatus = "delayed"
