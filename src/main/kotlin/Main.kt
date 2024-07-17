@@ -21,12 +21,10 @@ import java.time.Instant
 @Composable
 fun Message(message: String, removeMessage: () -> Unit) {
     Row {
-        Surface(elevation = 1.dp) {
-            Row(modifier = Modifier.padding(16.dp)) {
-                Text(message)
-                Button(removeMessage) {
-                    Text("Remove Message")
-                }
+        Row(modifier = Modifier) {
+            Text(message)
+            Button(removeMessage) {
+                Text("Remove Message")
             }
         }
     }
@@ -35,30 +33,27 @@ fun Message(message: String, removeMessage: () -> Unit) {
 @Composable
 fun ShipmentView(viewHelper: TrackerViewHelper, removeMessage: () -> Unit) {
     Row(Modifier.fillMaxWidth()) {
-        Surface(elevation = 1.dp) {
-            Row(Modifier.padding(8.dp).fillMaxWidth()) {
-                Column(Modifier.weight(1f)) {
-                    Text("Tracking Shipment: ${viewHelper.id}")
-                    Text("Status: ${viewHelper.status}")
-                    Text("Location: ${viewHelper.location}")
+        Row(Modifier.padding(8.dp).fillMaxWidth()) {
+            Column {
+                Text("Tracking Shipment: ${viewHelper.id}")
+                Text("Status: ${viewHelper.status}")
+                Text("Location: ${viewHelper.location}")
 
-                    Text("Expected Delivery: ${
-                        Instant.ofEpochMilli(viewHelper.dateTime)}".dropLast(2))
-                    Text("Shipment Updates: ")
-                    for (item in viewHelper.update) {
-                        Text(item)
-                    }
-                    Text("Notes: ")
-                    for (item in viewHelper.notes) {
-                        Text(item)
-                    }
-
+                Text("Expected Delivery: ${
+                    Instant.ofEpochMilli(viewHelper.dateTime)}")
+                Text("Shipment Updates: ")
+                for (item in viewHelper.update) {
+                    Text(item)
                 }
+                Text("Notes: ")
+                for (item in viewHelper.notes) {
+                    Text(item)
+                }
+            }
 
-                Column {
-                    Button(removeMessage, modifier = Modifier.align(Alignment.End)) {
-                        Text("X")
-                    }
+            Column {
+                Button(removeMessage, modifier = Modifier) {
+                    Text("X")
                 }
             }
         }
