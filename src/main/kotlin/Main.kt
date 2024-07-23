@@ -19,18 +19,6 @@ import java.time.Instant
 
 
 @Composable
-fun Message(message: String, removeMessage: () -> Unit) {
-    Row {
-        Row(modifier = Modifier) {
-            Text(message)
-            Button(removeMessage) {
-                Text("Remove Message")
-            }
-        }
-    }
-}
-
-@Composable
 fun ShipmentView(viewHelper: TrackerViewHelper, removeMessage: () -> Unit) {
     Row(Modifier.fillMaxWidth()) {
         Row(Modifier.padding(8.dp).fillMaxWidth()) {

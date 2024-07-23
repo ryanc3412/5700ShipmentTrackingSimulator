@@ -5,7 +5,7 @@ import ShipmentSubject
 import kotlinx.coroutines.delay
 import androidx.compose.runtime.mutableStateListOf
 
-class Shipment(status: String, id: String): ShipmentSubject {
+abstract class Shipment(status: String, id: String, created: Long, type: String): ShipmentSubject {
     var status: String = ""
         set(value) {
             field = value
@@ -36,13 +36,25 @@ class Shipment(status: String, id: String): ShipmentSubject {
             field = value
             notifyObservers()
         }
+    var type: String = ""
+        private set(value) {
+            field = value
+            notifyObservers()
+        }
+    var created: Long = 0L
+        private set
+
 
     private val subscribers = mutableListOf<ShipmentObserver>()
 
     init {
         this.status = status
         this.id = id
+        this.created = created
+        this.type = type
     }
+
+    abstract fun isValid(): Boolean
 
     fun addNote(note: String) {
         this.notes.add(note)
@@ -61,8 +73,6 @@ class Shipment(status: String, id: String): ShipmentSubject {
     }
 
     override fun notifyObservers() {
-        subscribers.forEach { it.notify(id, status, location, dateTime, notes, updates)}
+        subscribers.forEach { it.notify(id, status, location, dateTime, notes, updates, type)}
     }
-
-
 }
