@@ -4,5 +4,6 @@ interface ShipmentObserver {
                location: String,
                dateTime: Long,
                notes: MutableList<String>,
-               updateHistory: MutableList<String>)
+               updateHistory: MutableList<String>,
+               type: String)
 }
