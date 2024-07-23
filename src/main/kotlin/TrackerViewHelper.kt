@@ -11,6 +11,8 @@ class TrackerViewHelper(var shipment: Shipment): ShipmentObserver {
         private set
     var status by mutableStateOf("")
         private set
+    var type by mutableStateOf("")
+        private set;
     var notes: MutableList<String> = mutableStateListOf()
         private set
     var update : MutableList<String> = mutableStateListOf()
@@ -28,6 +30,7 @@ class TrackerViewHelper(var shipment: Shipment): ShipmentObserver {
         update = shipment.updates
         dateTime = shipment.dateTime
         location = shipment.location
+        type = shipment.type
     }
 
     override fun notify(
@@ -36,7 +39,8 @@ class TrackerViewHelper(var shipment: Shipment): ShipmentObserver {
         location: String,
         dateTime: Long,
         notes: MutableList<String>,
-        updateHistory: MutableList<String>
+        updateHistory: MutableList<String>,
+        type: String
     ) {
         this.id = id
         this.status = status
@@ -44,5 +48,6 @@ class TrackerViewHelper(var shipment: Shipment): ShipmentObserver {
         this.update = updateHistory
         this.dateTime = dateTime
         this.location = location
+        this.type = type
     }
 }
