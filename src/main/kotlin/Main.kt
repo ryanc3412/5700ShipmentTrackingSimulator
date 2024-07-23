@@ -9,7 +9,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.TrackerViewHelper
 import com.example.TrackingServer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Instant
 
 
@@ -46,16 +48,29 @@ fun ShipmentView(viewHelper: TrackerViewHelper, removeMessage: () -> Unit) {
 
 @Composable
 fun App() {
+    val scope = rememberCoroutineScope()
 
-    rememberCoroutineScope().launch { TrackingServer.runSimulation() }
+    LaunchedEffect(Unit) {
+        scope.launch {
+            withContext(Dispatchers.IO) {
+                TrackingServer.runServer()
+            }
+        }
+    }
+//    rememberCoroutineScope().launch { TrackingServer.runServer() }
+
     MaterialTheme {
         var searchVal by remember { mutableStateOf("") }
         val viewHelpers = remember { mutableStateListOf<TrackerViewHelper>() }
         Column (Modifier.fillMaxWidth()){
 
             Row (Modifier.fillMaxWidth()){
-                TextField(searchVal, onValueChange = {searchVal = it}, singleLine = true, modifier = Modifier.weight(1f))
-                Button({
+                TextField(searchVal,
+                    onValueChange = {searchVal = it},
+                    singleLine = true,
+                    modifier = Modifier.weight(1f)
+                )
+                Button(onClick = {
                     TrackingServer.findShipment(searchVal)?.let { it1 -> viewHelpers.add(TrackerViewHelper(it1)) }
                     if(TrackingServer.findShipment(searchVal) == null){
                         searchVal = "Invalid. Try again."
@@ -66,15 +81,12 @@ fun App() {
             }
             Row (Modifier.fillMaxWidth()){
                 LazyColumn(reverseLayout = true) {
-                    items(viewHelpers, key = {
-                        it
-                    }) { viewHelper ->
+                    items(viewHelpers, key = { it.id }) { viewHelper ->
                         ShipmentView(viewHelper) { viewHelpers.remove(viewHelper) }
                     }
                 }
             }
         }
-
     }
 }
 
