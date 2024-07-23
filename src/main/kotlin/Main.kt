@@ -24,6 +24,7 @@ fun ShipmentView(viewHelper: TrackerViewHelper, removeMessage: () -> Unit) {
         Row(Modifier.padding(8.dp).fillMaxWidth()) {
             Column {
                 Text("Tracking Shipment: ${viewHelper.id}")
+                Text("Type of shipment: ${viewHelper.type}")
                 Text("Status: ${viewHelper.status}")
                 Text("Location: ${viewHelper.location}")
 
