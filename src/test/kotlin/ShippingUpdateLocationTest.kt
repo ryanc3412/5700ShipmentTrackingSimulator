@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class ShippingUpdateLocationTest {
     @Test
     fun testLocationChange() {
-        val shipment = Shipment("In Transit", "12345")
+        val shipment = StandardShipment("In Transit", "12345", 1652712855468)
         val timeStamp = System.currentTimeMillis()
         val newLocation = "New York"
         val shippingUpdateLocation = ShippingUpdateLocation(shipment, timeStamp, newLocation)
